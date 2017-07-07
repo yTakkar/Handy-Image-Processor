@@ -1,0 +1,29 @@
+{
+  "name": "handy-image-processor",
+  "version": "1.0.0",
+  "description": "A handy, simple & useful Image Processor for NodeJS with very simple API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yTakkar/Handy-Image-Processor.git"
+  },
+  "keywords": [
+    "takkar",
+    "handy",
+    "image",
+    "processor",
+    "image-processor"
+  ],
+  "author": "takkar <shtakkar@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yTakkar/Handy-Image-Processor/issues"
+  },
+  "homepage": "https://github.com/yTakkar/Handy-Image-Processor#readme",
+  "dependencies": {
+    "gm": "^1.23.0"
+  }
+}
