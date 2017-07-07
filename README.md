@@ -9,6 +9,17 @@ A handy, simple & useful Image Processor for NodeJS with very simple API.
 
 # Usage
 
+First install it.
+
+```
+npm install handy-image-processor
+```
+or
+```
+yarn add handy-image-processor
+```
+
+Then here's the fun part!!
 ```javascript
 // Import
 const Processor = 'handy-image-processor'
