@@ -11,7 +11,7 @@ const ProcessImage = options => {
             .resize(width, height)
             .gravity('center')
             .quality(100)
-            .extent(100, 100, "!")         // COMMENT THIS LINE IF IMAGE IS NOT 100X100
+            // .extent(100, 100, "!")         // UNCOMMENT THIS LINE FOR EXACT 100X100 px IMAGE
             .write(destFile, err => {
                 err ? reject(err) : resolve('Processed!!')
             })
@@ -23,7 +23,7 @@ const read = util.promisify(fs.readdir)
 const dlt = util.promisify(fs.unlink)
 
 // FOR DELETING CONTENTS OD ANY FOLDER
-const DeleteFolder = folder => {
+const DeleteAllOfFolder = folder => {
     return new Promise((resolve, reject) => {
         read(folder)
             .then(items => {
@@ -40,5 +40,5 @@ const DeleteFolder = folder => {
 // EXPORTING THEM
 module.exports = {
     ProcessImage,
-    DeleteFolder
+    DeleteAllOfFolder
 }
