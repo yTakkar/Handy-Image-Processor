@@ -1,6 +1,6 @@
 {
   "name": "handy-image-processor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A handy Image Processor",
   "main": "index.js",
   "scripts": {
