@@ -4,28 +4,27 @@ A handy, simple & useful Image Processor for NodeJS with very simple API.
 
 # Requirements
 1. [gm](http://aheckmann.github.io/gm/)
-2. fs
-3. util
 
-# Usage
+# Install
 
-First install it.
+First install.
 
-```
+```bash
+# with npm
 npm install handy-image-processor
-```
-or
-```
+
+# or with Yarn
 yarn add handy-image-processor
 ```
 
-Then here's the fun part!!
+# Usage
+
 ```javascript
 // Import
 const Processor = 'handy-image-processor'
 
 // For processing
-Processor.ProcessImage(options:Object):String||Error
+Processor.ProcessImage(options:<Object>):<Promise>
 options = {
     srcFile,    // Image source      [eg. './src/image.gif']
     width,      // width you want    [eg. 100]

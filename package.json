@@ -1,7 +1,7 @@
 {
   "name": "handy-image-processor",
-  "version": "1.0.0",
-  "description": "A handy, simple & useful Image Processor for NodeJS with very simple API.",
+  "version": "1.0.1",
+  "description": "A handy Image Processor",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,7 +17,7 @@
     "processor",
     "image-processor"
   ],
-  "author": "takkar <shtakkar@gmail.com>",
+  "author": "takkar <www.shtakkar@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/yTakkar/Handy-Image-Processor/issues"

@@ -1,44 +1,56 @@
 // REQUIRING PACKAGES
 const gm = require('gm')
 const fs = require('fs')
-const util = require('util')
+const { promisify } = require('util')
 
-// FOR PROCESSING THE IMAGE
+/**
+ * For processing the image
+ *
+ * @param {Object} options
+ * @param {String} options.srcFile
+ * @param {Number} options.width
+ * @param {Number} options.height
+ * @param {String} options.destFile
+ * @param {Boolean} options.exact
+ */
 const ProcessImage = options => {
-    return new Promise((resolve, reject) => {
-        let { srcFile, width, height, destFile } = options
-        gm(srcFile)
-            .resize(width, height)
-            .gravity('center')
-            .quality(100)
-            // .extent(100, 100, "!")         // UNCOMMENT THIS LINE FOR EXACT 100X100 px IMAGE
-            .write(destFile, err => {
-                err ? reject(err) : resolve('Processed!!')
-            })
-    })
+  return new Promise((resolve, reject) => {
+    let { srcFile, width, height, destFile, exact } = options
+    gm(srcFile)
+      .resize(width, height)
+      .gravity('center')
+      .quality(100)
+      .extent(width, height, exact ? '!' : '')
+      .write(destFile, err => {
+        err
+          ? reject(err)
+          : resolve('Processed!!')
+      })
+  })
 }
 
 // CONVERTING CALLBACKS INTO PROMISES
-const read = util.promisify(fs.readdir)
-const dlt = util.promisify(fs.unlink)
+const read = promisify(fs.readdir)
+const dlt = promisify(fs.unlink)
 
-// FOR DELETING CONTENTS OD ANY FOLDER
+/**
+ * For deleting all the contents of any folder
+ * @param {String} folder
+ */
 const DeleteAllOfFolder = folder => {
-    return new Promise((resolve, reject) => {
-        read(folder)
-            .then(items => {
-                items.map(item => {
-                    dlt(folder+item)
-                        .then(s => resolve('Deleted!') )
-                        .catch(e => reject(e) )
-                })
-            })
-            .catch(err => reject(err) )
-    })
+  return new Promise((resolve, reject) => {
+    read(folder).then(items => {
+      items.map(item => {
+        dlt(folder + item)
+          .then(s => resolve('Deleted!'))
+          .catch(e => reject(e))
+      })
+    }).catch(err => reject(err))
+  })
 }
 
 // EXPORTING THEM
 module.exports = {
-    ProcessImage,
-    DeleteAllOfFolder
+  ProcessImage,
+  DeleteAllOfFolder
 }
