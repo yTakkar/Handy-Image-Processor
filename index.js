@@ -11,16 +11,14 @@ const { promisify } = require('util')
  * @param {Number} options.width
  * @param {Number} options.height
  * @param {String} options.destFile
- * @param {Boolean} options.exact
  */
 const ProcessImage = options => {
   return new Promise((resolve, reject) => {
-    let { srcFile, width, height, destFile, exact } = options
+    let { srcFile, width, height, destFile } = options
     gm(srcFile)
       .resize(width, height)
       .gravity('center')
       .quality(100)
-      .extent(width, height, exact ? '!' : '')
       .write(destFile, err => {
         err
           ? reject(err)
@@ -41,8 +39,8 @@ const DeleteAllOfFolder = folder => {
   return new Promise((resolve, reject) => {
     read(folder).then(items => {
       items.map(item => {
-        dlt(folder + item)
-          .then(s => resolve('Deleted!'))
+        dlt(`${folder}/${item}`)
+          .then(s => resolve('Deleted!!'))
           .catch(e => reject(e))
       })
     }).catch(err => reject(err))
