@@ -1,10 +1,12 @@
 const { ProcessImage, DeleteAllOfFolder } = require('./index')
 const { join } = require('path')
 const gm = require('gm')
+const { mkdirSync, rmdirSync } = require('fs')
 
 describe('Sweet tests', () => {
 
   it('should process the given image', async () => {
+    mkdirSync(join(__dirname, '/dist'))
     let p = await ProcessImage({
       srcFile: join(__dirname, '/src/image-music.jpg'),
       width: 200,
@@ -29,6 +31,7 @@ describe('Sweet tests', () => {
       join(__dirname, '/dist')
     )
     expect(d).toBe('Deleted!!')
+    rmdirSync(join(__dirname, '/dist'))
   })
 
 })
