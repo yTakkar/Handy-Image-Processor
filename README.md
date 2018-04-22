@@ -21,10 +21,10 @@ yarn add handy-image-processor
 
 ```javascript
 // Import
-const Processor = 'handy-image-processor'
+const Processor = require('handy-image-processor')
 
 // For processing
-Processor.ProcessImage(options:<Object>):<Promise>
+Processor.ProcessImage(options:Object):Promise
 options = {
     srcFile,    // Image source      [eg. './src/image.gif']
     width,      // width you want    [eg. 100]
@@ -33,7 +33,5 @@ options = {
 }
 
 // For deleting all the files of any given folder
-Processor.DeleteFolder(folder:String):String||Error
+Processor.DeleteFolder(folder:String):Promise
 ```
-
-To make the API more useful, [visit](http://aheckmann.github.io/gm/) & go through given options!!

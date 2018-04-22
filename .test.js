@@ -1,23 +1,34 @@
 const { ProcessImage, DeleteAllOfFolder } = require('./index')
 const { join } = require('path')
 const gm = require('gm')
-const { mkdirSync, rmdirSync } = require('fs')
+const { mkdirSync, rmdirSync, existsSync } = require('fs')
+const j = path => join(__dirname, path)
 
 describe('Sweet tests', () => {
 
-  it('should process the given image', async () => {
-    mkdirSync(join(__dirname, '/dist'))
+  // before all tests
+  beforeAll(() => {
+    existsSync(j('/dist')) ? rmdirSync(j('/dist')) : null   // delete dist directory if exists
+    mkdirSync(j('/dist'))   // create dist directory
+  })
+
+  // after all tests
+  afterAll(() =>
+    rmdirSync(j('/dist'))   // remove dist when all the tests are completed
+  )
+
+  test('should process the given image', async () => {
     let p = await ProcessImage({
-      srcFile: join(__dirname, '/src/image-music.jpg'),
+      srcFile: j('/src/image-music.jpg'),
       width: 200,
       height: 200,
-      destFile: join(__dirname, '/dist/image.png'),
+      destFile: j('/dist/image.png'),
     })
     expect(p).toBe('Processed!!')
   })
 
-  it('Created image should have dimension of 175x200', async () => {
-    gm(join(__dirname, '/dist/image.png'))
+  test('Created image should have dimension of 175x200', () => {
+    gm(j('/dist/image.png'))
       .size((err, size) => {
         if (size) {
           expect(size.width).toBe(175)
@@ -26,12 +37,10 @@ describe('Sweet tests', () => {
       })
   })
 
-  it('should delete all the files of a given folder', async () => {
-    let d = await DeleteAllOfFolder(
-      join(__dirname, '/dist')
-    )
-    expect(d).toBe('Deleted!!')
-    rmdirSync(join(__dirname, '/dist'))
+  // another way of testing async code
+  test('should delete all the files of a given folder', () => {
+    let d = DeleteAllOfFolder(j('/dist'))
+    return expect(d).resolves.toBe('Deleted!!') // return || await
   })
 
 })
