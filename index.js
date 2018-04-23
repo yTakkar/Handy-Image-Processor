@@ -1,7 +1,6 @@
 // REQUIRING PACKAGES
 const gm = require('gm')
-const fs = require('fs')
-const { promisify } = require('util')
+const { readdirSync, unlinkSync } = require('fs')
 
 /**
  * For processing the image
@@ -19,32 +18,24 @@ const ProcessImage = options => {
       .resize(width, height)
       .gravity('center')
       .quality(100)
-      .write(destFile, err => {
+      .write(destFile, err =>
         err
           ? reject(err)
           : resolve('Processed!!')
-      })
+      )
   })
 }
-
-// CONVERTING CALLBACKS INTO PROMISES
-const read = promisify(fs.readdir)
-const dlt = promisify(fs.unlink)
 
 /**
  * For deleting all the contents of any folder
  * @param {String} folder
  */
 const DeleteAllOfFolder = folder => {
-  return new Promise((resolve, reject) => {
-    read(folder).then(items => {
-      items.map(item => {
-        dlt(`${folder}/${item}`)
-          .then(s => resolve('Deleted!!'))
-          .catch(e => reject(e))
-      })
-    }).catch(err => reject(err))
+  let files = readdirSync(folder)
+  files.map(file => {
+    unlinkSync(`${folder}/${file}`)
   })
+  return 'Deleted!!'
 }
 
 // EXPORTING THEM

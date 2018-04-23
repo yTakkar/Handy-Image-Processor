@@ -37,10 +37,9 @@ describe('Sweet tests', () => {
       })
   })
 
-  // another way of testing async code
   test('should delete all the files of a given folder', () => {
     let d = DeleteAllOfFolder(j('/dist'))
-    return expect(d).resolves.toBe('Deleted!!') // return || await
+    expect(d).toBe('Deleted!!')
   })
 
 })
